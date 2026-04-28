@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { SlideUp } from "@/components/SlideUp";
+import {
+  SlideUp,
+  FadeIn,
+  StaggerChildren,
+  StaggerItem,
+} from "@/components/SlideUp";
+import { AnimatedCounter } from "@/components/AnimatedCounter";
 import {
   Table,
   TableBody,
@@ -14,52 +20,19 @@ import {
 export default function Home() {
   return (
     <div className="mesh-gradient">
-      {/* Shared Component: TopNavBar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex flex-col shadow-[0_20px_40px_rgba(10,17,40,0.05)]">
-        {/* Top Bar for Contact Info */}
-        <div className="bg-[#1B2A4A] text-white py-2 px-10">
-          <div className="max-w-[1440px] mx-auto flex justify-between items-center text-xs font-sans tracking-wider">
-            <div className="flex items-center gap-6">
-              <a
-                href="mailto:rssdi2026@gmail.com"
-                className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
-              >
-                <span className="material-symbols-outlined text-[16px]">
-                  mail
-                </span>{" "}
-                rssdi2026@gmail.com
-              </a>
-              <a
-                href="tel:+919099331371"
-                className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
-              >
-                <span className="material-symbols-outlined text-[16px]">
-                  call
-                </span>{" "}
-                +91 90993 31371
-              </a>
-            </div>
-            <div className="hidden md:flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px]">
-                location_on
-              </span>{" "}
-              Aldovia - Resort &amp; Convention
-            </div>
-          </div>
-        </div>
-
-        {/* Main Nav */}
-        <div className="bg-[#F9F6F0]/90 backdrop-blur-md dark:bg-slate-900/90 border-b border-[#D4AF37]/20 w-full transition-all">
-          <div className="max-w-[1440px] mx-auto flex justify-between items-center px-10 py-4 w-full">
+      {/* Glassmorphism Nav */}
+      <nav className="fixed top-0 left-0 right-0 z-50">
+        <div className="bg-white/70 backdrop-blur-xl border-b border-[#7F56D9]/8 shadow-[0_4px_30px_rgba(45,27,105,0.06)]">
+          <div className="max-w-[1440px] mx-auto flex justify-between items-center px-6 md:px-10 py-3">
             <div className="flex items-center gap-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 alt="RSSDI 2026 Logo"
-                className="h-16 w-auto object-contain"
+                className="h-12 md:h-14 w-auto object-contain"
                 src="/logo.png"
               />
             </div>
-            <div className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <div className="hidden lg:flex items-center gap-6 xl:gap-7">
               {[
                 "Home",
                 "RSSDI 2026",
@@ -72,85 +45,144 @@ export default function Home() {
               ].map((item) => (
                 <Link
                   key={item}
-                  className="font-nav-link text-nav-link text-[#1B2A4A] dark:text-slate-300 hover:text-[#D4AF37] transition-all duration-300 ease-in-out whitespace-nowrap"
+                  className="font-nav-link text-nav-link text-slate-500 hover:text-[#FBBF24] transition-all duration-300 whitespace-nowrap relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#FBBF24] after:transition-all after:duration-300 hover:after:w-full"
                   href="#"
                 >
                   {item}
                 </Link>
               ))}
             </div>
-            <Button className="bg-[#1B2A4A] !text-white px-6 py-2.5 h-auto rounded-none font-nav-link text-nav-link uppercase tracking-widest hover:bg-[#1B2A4A]/90 hover:scale-95 transition-all duration-300">
-              Register
-            </Button>
+            <div className="flex items-center gap-4">
+              <div className="hidden xl:flex items-center gap-3 text-xs text-slate-500 font-sans">
+                <a
+                  href="mailto:rssdi2026@gmail.com"
+                  className="hover:text-[#FBBF24] transition-colors flex items-center gap-1"
+                >
+                  <span className="material-symbols-outlined text-[14px]">
+                    mail
+                  </span>
+                  rssdi2026@gmail.com
+                </a>
+              </div>
+              <Button className="shimmer-btn bg-[#42307D] !text-white px-6 py-2.5 h-auto rounded-full font-nav-link text-nav-link uppercase tracking-widest hover:bg-[#FBBF24] hover:!text-slate-700 transition-all duration-500 shadow-lg">
+                Register
+              </Button>
+            </div>
           </div>
         </div>
       </nav>
 
       {/* Main Content */}
-      <main className="relative pt-32">
+      <main className="relative pt-24">
         {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden px-6 md:px-10 lg:px-16 ">
+        <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden px-6 md:px-10 lg:px-16">
           <div className="absolute inset-0 z-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               alt="Vidhana Soudha, Bengaluru"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover scale-105 grayscale"
               src="/hero.png"
             />
-            {/* Multi-layer gradient overlay for text legibility while keeping the "Heritage Modernist" feel */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#fff8f0] via-[#fff8f0]/80 to-transparent z-10"></div>
-            <div className="absolute inset-0 bg-black/5 z-0"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#faf8ff] via-[#faf8ff]/90 to-transparent z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#faf8ff]/40 to-transparent z-10"></div>
+            {/* Gradient orbs */}
+            <div className="absolute top-20 right-[20%] w-64 h-64 rounded-full bg-[#7F56D9]/[0.08] blur-3xl gradient-orb z-10"></div>
+            <div
+              className="absolute bottom-32 right-[40%] w-48 h-48 rounded-full bg-[#FBBF24]/[0.06] blur-3xl gradient-orb z-10"
+              style={{ animationDelay: "3s" }}
+            ></div>
           </div>
           <div className="relative z-20 max-w-[1440px] mx-auto w-full grid items-center">
-            <div className="space-y-12">
+            <div className="space-y-8 md:space-y-10">
               <SlideUp delay={0.1} className="flex items-center gap-4">
-                <span className="w-12 h-px bg-[#735c00]"></span>
-                <span className="font-label-caps text-label-caps text-[#735c00] uppercase">
-                  19th - 22nd November 2026
+                <span className="w-12 h-px bg-gradient-to-r from-[#7F56D9] to-[#FBBF24]"></span>
+                <span className="font-label-caps text-label-caps text-[#7F56D9] uppercase">
+                  19th - 22nd November 2026 · Bengaluru
                 </span>
               </SlideUp>
               <SlideUp delay={0.2}>
-                <h1 className="font-display-hero text-[64px] md:text-[84px] leading-[1.1] text-[#1B2A4A] tracking-[-0.02em]">
+                <h1 className="font-display-hero text-[52px] md:text-[72px] lg:text-[84px] leading-[1.05] text-slate-700 tracking-[-0.02em]">
                   54th Annual
                   <br />
-                  Conference of <i className="text-[#d4af37]">RSSDI</i>
+                  Conference of <i className="text-[#7F56D9]">RSSDI</i>
                 </h1>
               </SlideUp>
               <SlideUp delay={0.3}>
-                <p className="font-body-lg text-lg text-[#4d4635] max-w-xl leading-[1.6]">
-                  Join us in Bengaluru for the premier gathering of
-                  diabetologists, researchers, and healthcare professionals.
-                  Explore pioneering research, evidence-based practices, and the
-                  future of diabetes care at the heart of Karnataka.
+                <p className="font-body-lg text-base md:text-lg text-slate-500 max-w-xl leading-[1.7]">
+                  Join 6,000+ delegates in Bengaluru for the premier gathering
+                  of diabetologists, researchers, and healthcare professionals.
                 </p>
               </SlideUp>
-              <SlideUp delay={0.4} className="flex flex-wrap gap-6 pt-2">
-                <Button className="bg-[#1B2A4A] text-[#D4AF37] px-8 py-6 h-auto rounded-none font-semibold tracking-[0.2em] uppercase text-sm hover:-translate-y-0.5 transition-transform shadow-[0_20px_40px_rgba(10,17,40,0.05)] hover:bg-[#1B2A4A]/90">
+              <SlideUp
+                delay={0.4}
+                className="flex flex-wrap items-center gap-4 pt-2"
+              >
+                <Button className="shimmer-btn bg-[#7F56D9] hover:bg-[#6941C6] shadow-md shadow-[#7F56D9]/20 text-white px-8 py-6 h-auto rounded-full font-semibold tracking-[0.15em] uppercase text-sm hover:-translate-y-1 transition-all duration-500 shadow-[0_12px_40px_rgba(124,58,237,0.3)] hover:shadow-[0_20px_50px_rgba(124,58,237,0.4)]">
                   Register Now
                 </Button>
                 <Button
                   variant="outline"
-                  className="border border-[#1B2A4A] text-[#1B2A4A] bg-transparent px-8 py-6 h-auto rounded-none font-semibold tracking-[0.2em] uppercase text-sm hover:bg-[#1B2A4A]/5 transition-colors"
+                  className="border-2 border-[#7F56D9]/20 text-slate-700 bg-white/50 backdrop-blur-sm px-8 py-6 h-auto rounded-full font-semibold tracking-[0.15em] uppercase text-sm hover:bg-[#42307D] hover:!text-white hover:border-[#42307D] transition-all duration-500"
                 >
                   Explore Program
                 </Button>
+                <span className="hidden md:inline-flex items-center gap-2 bg-gradient-to-r from-[#7F56D9]/10 to-[#9E77ED]/10 text-[#7F56D9] rounded-full px-5 py-2.5 text-xs font-sans font-semibold tracking-wide pulse-glow">
+                  <span className="material-symbols-outlined text-[16px]">
+                    local_fire_department
+                  </span>
+                  Early Bird — Save up to 40%
+                </span>
+              </SlideUp>
+              <SlideUp delay={0.5}>
+                <div className="pt-4 flex items-center gap-8">
+                  <div className="flex items-center gap-3">
+                    <span className="material-symbols-outlined text-[#7F56D9] text-2xl">
+                      calendar_month
+                    </span>
+                    <div>
+                      <p className="font-sans font-bold text-slate-700 text-lg">
+                        Nov 19–22, 2026
+                      </p>
+                      <p className="text-xs text-slate-500 font-sans">
+                        Bengaluru, India
+                      </p>
+                    </div>
+                  </div>
+                  <div className="hidden md:flex items-center gap-3">
+                    <span className="material-symbols-outlined text-[#6941C6] text-2xl">
+                      groups
+                    </span>
+                    <div>
+                      <p className="font-sans font-bold text-slate-700 text-lg">
+                        6,000+ Delegates
+                      </p>
+                      <p className="text-xs text-slate-500 font-sans">
+                        From across the globe
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </SlideUp>
             </div>
           </div>
         </section>
 
         {/* About RSSDI 2026 Welcome Section */}
-        <section className="bg-[#1B2A4A] py-32 mb-32 text-white relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 border border-[#D4AF37]/10 -mr-32 -mt-32 rotate-45"></div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 border border-[#D4AF37]/10 -ml-32 -mb-32 rotate-45"></div>
-          <div className="max-w-[1000px] mx-auto px-10 text-center relative z-10">
+        <section className="bg-gradient-to-br from-[#42307D] via-[#53389E] to-[#42307D] py-28 md:py-32 mb-32 text-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-72 h-72 border border-[#9E77ED]/10 -mr-36 -mt-36 rotate-45 float-slow"></div>
+          <div
+            className="absolute bottom-0 left-0 w-72 h-72 border border-[#FBBF24]/10 -ml-36 -mb-36 rotate-45 float-slow"
+            style={{ animationDelay: "3s" }}
+          ></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#7F56D9]/[0.08] blur-3xl gradient-orb"></div>
+          <div className="max-w-[1000px] mx-auto px-6 md:px-10 text-center relative z-10">
             <SlideUp>
-              <span className="font-label-caps text-label-caps text-[#D4AF37] mb-8 block">
+              <span className="font-label-caps text-label-caps text-[#FBBF24] mb-8 block">
                 WELCOME MESSAGE
               </span>
-              <h2 className="font-display-hero text-4xl md:text-5xl mb-12 leading-tight">
+              <h2 className="font-display-hero text-3xl md:text-4xl lg:text-5xl mb-12 leading-tight">
                 &quot;It gives me immense pleasure to welcome you to the{" "}
-                <span className="italic text-[#D4AF37]">
+                <span className="italic text-[#FBBF24]">
                   54th Annual Conference
                 </span>{" "}
                 of the Research Society for the Study of Diabetes in
@@ -158,15 +190,12 @@ export default function Home() {
               </h2>
             </SlideUp>
             <SlideUp delay={0.2}>
-              <p className="font-body-lg text-slate-300 max-w-3xl mx-auto mb-16 leading-relaxed">
+              <p className="font-body-lg text-slate-300/90 max-w-3xl mx-auto mb-16 leading-relaxed">
                 The RSSDI Annual Conference has grown over the decades to become
                 India&apos;s largest and most prestigious academic gathering in
                 the field of diabetes, attracting thousands of physicians,
                 researchers, healthcare professionals, and industry partners
-                from across the country and around the globe. Each year, the
-                conference serves as a dynamic platform for sharing cutting-edge
-                research, clinical experiences and innovations that aim to
-                improve diabetes prevention, diagnosis, and management.
+                from across the country and around the globe.
               </p>
             </SlideUp>
             <SlideUp delay={0.3}>
@@ -174,7 +203,7 @@ export default function Home() {
                 <span className="font-sans font-semibold text-xl tracking-wide mb-1">
                   Dr. K M Prasanna Kumar
                 </span>
-                <span className="font-label-caps text-label-caps text-[#D4AF37]">
+                <span className="font-label-caps text-label-caps text-[#FBBF24]">
                   CHAIRMAN &amp; NATIONAL PATRON
                 </span>
               </div>
@@ -182,10 +211,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Conference Highlights */}
-        <section className="max-w-[1440px] mx-auto px-10 mb-32">
+        {/* Conference Highlights — Bento Grid */}
+        <section className="max-w-[1440px] mx-auto px-6 md:px-10 mb-32">
           <SlideUp className="flex flex-col items-center mb-16 text-center">
-            <span className="font-label-caps text-label-caps text-[#D4AF37] mb-4">
+            <span className="font-label-caps text-label-caps text-[#FBBF24] mb-4">
               ACADEMIC EXCELLENCE
             </span>
             <h2 className="font-headline-md text-headline-md">
@@ -193,114 +222,130 @@ export default function Home() {
             </h2>
             <div className="w-24 h-[1px] bg-primary-container mt-6"></div>
           </SlideUp>
-          <SlideUp
-            delay={0.2}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+
+          {/* Bento Grid */}
+          <StaggerChildren
+            staggerDelay={0.07}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
           >
-            <div className="bg-white/50 border border-primary-container/10 p-8 hover:bg-white transition-all duration-500 group">
-              <div className="w-16 h-16 rounded-full bg-[#1B2A4A] flex items-center justify-center mb-6 text-[#D4AF37] group-hover:scale-110 transition-transform shadow-md">
-                <span className="material-symbols-outlined text-3xl">
-                  record_voice_over
-                </span>
+            {/* Hero card — spans 2 cols */}
+            <StaggerItem className="md:col-span-2">
+              <div className="glass-card rounded-2xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group gradient-border h-full flex flex-col justify-between relative overflow-hidden">
+                <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-[#FBBF24]/[0.04] blur-2xl pointer-events-none" />
+                <div>
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#7F56D9] to-[#6941C6] flex items-center justify-center mb-6 text-white group-hover:scale-110 group-hover:rounded-2xl transition-all duration-500 shadow-lg">
+                    <span className="material-symbols-outlined text-2xl">
+                      record_voice_over
+                    </span>
+                  </div>
+                  <h4 className="font-sans font-semibold text-xl md:text-2xl mb-3 text-slate-700">
+                    National & International Pioneer Speakers
+                  </h4>
+                  <p className="text-sm text-on-surface-variant/80 leading-relaxed max-w-lg">
+                    Engage with globally renowned experts shaping the future of
+                    diabetes research and clinical practice. Hear from thought
+                    leaders driving groundbreaking innovations.
+                  </p>
+                </div>
               </div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-[#1B2A4A]">
-                National &amp; International Pioneer Speakers
-              </h4>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
-                Engage with globally renowned experts shaping the future of
-                diabetes research and clinical practice.
-              </p>
-            </div>
-            <div className="bg-white/50 border border-primary-container/10 p-8 hover:bg-white transition-all duration-500 group">
-              <div className="w-16 h-16 rounded-full bg-[#1B2A4A] flex items-center justify-center mb-6 text-[#D4AF37] group-hover:scale-110 transition-transform shadow-md">
-                <span className="material-symbols-outlined text-3xl">hub</span>
+            </StaggerItem>
+
+            {/* Standard cards */}
+            {[
+              {
+                icon: "hub",
+                title: "Special Events & Networking",
+                desc: "Curated sessions to foster collaboration between researchers and clinicians.",
+              },
+              {
+                icon: "biotech",
+                title: "Core Scientific Session",
+                desc: "In-depth exploration of metabolic pathways and pharmacological breakthroughs.",
+              },
+            ].map((item) => (
+              <StaggerItem key={item.icon}>
+                <div className="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group gradient-border h-full">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7F56D9] to-[#6941C6] flex items-center justify-center mb-5 text-white group-hover:scale-110 group-hover:rounded-2xl transition-all duration-500 shadow-lg">
+                    <span className="material-symbols-outlined text-xl">
+                      {item.icon}
+                    </span>
+                  </div>
+                  <h4 className="font-sans font-semibold text-lg mb-2 text-slate-700">
+                    {item.title}
+                  </h4>
+                  <p className="text-sm text-on-surface-variant/70 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </StaggerItem>
+            ))}
+
+            {/* Row 2 */}
+            {[
+              {
+                icon: "description",
+                title: "Research Presentations",
+                desc: "Original research from the next generation of endocrine specialists.",
+              },
+              {
+                icon: "science",
+                title: "Technology & Panel Discussion",
+                desc: "Forums at the intersection of digital health and diabetology.",
+              },
+            ].map((item) => (
+              <StaggerItem key={item.icon}>
+                <div className="glass-card rounded-2xl p-8 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group gradient-border h-full">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7F56D9] to-[#6941C6] flex items-center justify-center mb-5 text-white group-hover:scale-110 group-hover:rounded-2xl transition-all duration-500 shadow-lg">
+                    <span className="material-symbols-outlined text-xl">
+                      {item.icon}
+                    </span>
+                  </div>
+                  <h4 className="font-sans font-semibold text-lg mb-2 text-slate-700">
+                    {item.title}
+                  </h4>
+                  <p className="text-sm text-on-surface-variant/70 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              </StaggerItem>
+            ))}
+
+            {/* Hero card 2 — spans 2 cols */}
+            <StaggerItem className="md:col-span-2">
+              <div className="glass-card rounded-2xl p-8 md:p-10 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 group gradient-border h-full flex flex-col justify-between relative overflow-hidden">
+                <div className="absolute -bottom-16 -left-16 w-32 h-32 rounded-full bg-[#42307D]/[0.03] blur-2xl pointer-events-none" />
+                <div>
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#7F56D9] to-[#6941C6] flex items-center justify-center text-white group-hover:scale-110 group-hover:rounded-2xl transition-all duration-500 shadow-lg">
+                      <span className="material-symbols-outlined text-2xl">
+                        front_hand
+                      </span>
+                    </div>
+                    <div className="w-14 h-14 rounded-xl bg-[#9E77ED]/10 flex items-center justify-center text-[#6941C6] group-hover:scale-110 group-hover:rounded-2xl transition-all duration-500">
+                      <span className="material-symbols-outlined text-2xl">
+                        verified
+                      </span>
+                    </div>
+                  </div>
+                  <h4 className="font-sans font-semibold text-xl md:text-2xl mb-3 text-slate-700">
+                    Hands-on Workshops & Evidence-Based Practices
+                  </h4>
+                  <p className="text-sm text-on-surface-variant/80 leading-relaxed max-w-lg">
+                    Practical workshops for daily clinical practice and patient
+                    care techniques, combined with the latest clinical
+                    guidelines in diabetes management.
+                  </p>
+                </div>
               </div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-[#1B2A4A]">
-                Special Events &amp; Professionals Networking
-              </h4>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
-                Curated networking sessions designed to foster collaboration
-                between researchers and clinicians.
-              </p>
-            </div>
-            <div className="bg-white/50 border border-primary-container/10 p-8 hover:bg-white transition-all duration-500 group">
-              <div className="w-16 h-16 rounded-full bg-[#1B2A4A] flex items-center justify-center mb-6 text-[#D4AF37] group-hover:scale-110 transition-transform shadow-md">
-                <span className="material-symbols-outlined text-3xl">
-                  biotech
-                </span>
-              </div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-[#1B2A4A]">
-                Core Scientific Session
-              </h4>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
-                In-depth exploration of metabolic pathways, pharmacological
-                breakthroughs, and patient management.
-              </p>
-            </div>
-            <div className="bg-white/50 border border-primary-container/10 p-8 hover:bg-white transition-all duration-500 group">
-              <div className="w-16 h-16 rounded-full bg-[#1B2A4A] flex items-center justify-center mb-6 text-[#D4AF37] group-hover:scale-110 transition-transform shadow-md">
-                <span className="material-symbols-outlined text-3xl">
-                  description
-                </span>
-              </div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-[#1B2A4A]">
-                Oral &amp; Poster Research Presentation
-              </h4>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
-                Showcasing the latest original research from the next generation
-                of endocrine specialists.
-              </p>
-            </div>
-            <div className="bg-white/50 border border-primary-container/10 p-8 hover:bg-white transition-all duration-500 group">
-              <div className="w-16 h-16 rounded-full bg-[#1B2A4A] flex items-center justify-center mb-6 text-[#D4AF37] group-hover:scale-110 transition-transform shadow-md">
-                <span className="material-symbols-outlined text-3xl">
-                  science
-                </span>
-              </div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-[#1B2A4A]">
-                Science, Technology &amp; Panel Discussion
-              </h4>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
-                Interactive forums addressing the intersection of digital health
-                and diabetology.
-              </p>
-            </div>
-            <div className="bg-white/50 border border-primary-container/10 p-8 hover:bg-white transition-all duration-500 group">
-              <div className="w-16 h-16 rounded-full bg-[#1B2A4A] flex items-center justify-center mb-6 text-[#D4AF37] group-hover:scale-110 transition-transform shadow-md">
-                <span className="material-symbols-outlined text-3xl">
-                  front_hand
-                </span>
-              </div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-[#1B2A4A]">
-                Hands-on &amp; Demonstration
-              </h4>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
-                Practical workshops relevant to daily clinical practice and
-                patient care techniques.
-              </p>
-            </div>
-            <div className="bg-white/50 border border-primary-container/10 p-8 hover:bg-white transition-all duration-500 group">
-              <div className="w-16 h-16 rounded-full bg-[#1B2A4A] flex items-center justify-center mb-6 text-[#D4AF37] group-hover:scale-110 transition-transform shadow-md">
-                <span className="material-symbols-outlined text-3xl">
-                  verified
-                </span>
-              </div>
-              <h4 className="font-sans font-semibold text-lg mb-4 text-[#1B2A4A]">
-                Updated Evidence Based Practices
-              </h4>
-              <p className="text-sm text-on-surface-variant leading-relaxed">
-                Review and application of the latest clinical guidelines in
-                diabetes management.
-              </p>
-            </div>
-          </SlideUp>
+            </StaggerItem>
+          </StaggerChildren>
         </section>
 
         {/* Organizing Committee */}
-        <section className="bg-surface-container/30 py-32 mb-32">
-          <div className="max-w-[1440px] mx-auto px-10">
+        <section className="bg-surface-container/30 py-28 md:py-32 mb-32">
+          <div className="max-w-[1440px] mx-auto px-6 md:px-10">
             <SlideUp className="flex flex-col items-center mb-20 text-center">
-              <span className="font-label-caps text-label-caps text-[#D4AF37] mb-4">
+              <span className="font-label-caps text-label-caps text-[#FBBF24] mb-4">
                 THE LEADERSHIP
               </span>
               <h2 className="font-headline-md text-headline-md">
@@ -308,91 +353,54 @@ export default function Home() {
               </h2>
               <div className="w-24 h-[1px] bg-primary-container mt-6"></div>
             </SlideUp>
-            <SlideUp
-              delay={0.2}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12"
+            <StaggerChildren
+              staggerDelay={0.12}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10"
             >
-              {/* Member 1 */}
-              <div className="flex flex-col items-center group">
-                <div className="relative mb-6 overflow-hidden aspect-[4/5] w-full border border-primary-container/10">
-                  <div className="w-full h-full bg-slate-200 grayscale group-hover:grayscale-0 transition-all duration-700 flex items-center justify-center text-slate-400">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      alt="Dr. K M Prasanna Kumar"
-                      className="w-full h-full object-cover object-top"
-                      src="/km.png"
-                    />
+              {[
+                {
+                  name: "Dr. K M Prasanna Kumar",
+                  role: "CHAIRMAN & NATIONAL PATRON",
+                  img: "/km.png",
+                },
+                {
+                  name: "Dr. L Sreenivasamurthy",
+                  role: "ORGANISING SECRETARY",
+                  img: "/lsree.jpg",
+                },
+                {
+                  name: "Dr. Karthik Munichoodappa",
+                  role: "ORGANISING SECRETARY",
+                  img: "/kartik.jpg",
+                },
+                { name: "Dr. Sridhar K", role: "TREASURER", img: "/sri.jpg" },
+              ].map((member) => (
+                <StaggerItem key={member.name}>
+                  <div className="flex flex-col items-center group">
+                    <div className="relative mb-6 overflow-hidden aspect-[4/5] w-full rounded-2xl border-2 border-transparent group-hover:border-[#FBBF24]/50 transition-all duration-700 shadow-lg group-hover:shadow-xl">
+                      <div className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          alt={member.name}
+                          className="w-full h-full object-cover object-top"
+                          src={member.img}
+                        />
+                      </div>
+                    </div>
+                    <h3 className="font-sans font-semibold text-xl text-slate-700">
+                      {member.name}
+                    </h3>
+                    <p className="font-label-caps text-label-caps text-[#FBBF24] mt-1">
+                      {member.role}
+                    </p>
                   </div>
-                </div>
-                <h3 className="font-sans font-semibold text-xl text-[#1B2A4A]">
-                  Dr. K M Prasanna Kumar
-                </h3>
-                <p className="font-label-caps text-label-caps text-[#D4AF37] mt-1">
-                  CHAIRMAN &amp; NATIONAL PATRON
-                </p>
-              </div>
-              {/* Member 2 */}
-              <div className="flex flex-col items-center group">
-                <div className="relative mb-6 overflow-hidden aspect-[4/5] w-full border border-primary-container/10">
-                  <div className="w-full h-full bg-slate-200 grayscale group-hover:grayscale-0 transition-all duration-700 flex items-center justify-center text-slate-400">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      alt="Dr. L Sreenivasamurthy"
-                      className="w-full h-full object-cover object-top"
-                      src="/lsree.jpg"
-                    />
-                  </div>
-                </div>
-                <h3 className="font-sans font-semibold text-xl text-[#1B2A4A]">
-                  Dr. L Sreenivasamurthy
-                </h3>
-                <p className="font-label-caps text-label-caps text-[#D4AF37] mt-1">
-                  ORGANISING SECRETARY
-                </p>
-              </div>
-              {/* Member 3 */}
-              <div className="flex flex-col items-center group">
-                <div className="relative mb-6 overflow-hidden aspect-[4/5] w-full border border-primary-container/10">
-                  <div className="w-full h-full bg-slate-200 grayscale group-hover:grayscale-0 transition-all duration-700 flex items-center justify-center text-slate-400">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      alt="Dr. Karthik Munichoodappa"
-                      className="w-full h-full object-cover object-top"
-                      src="/kartik.jpg"
-                    />
-                  </div>
-                </div>
-                <h3 className="font-sans font-semibold text-xl text-[#1B2A4A]">
-                  Dr. Karthik Munichoodappa
-                </h3>
-                <p className="font-label-caps text-label-caps text-[#D4AF37] mt-1">
-                  ORGANISING SECRETARY
-                </p>
-              </div>
-              {/* Member 4 */}
-              <div className="flex flex-col items-center group">
-                <div className="relative mb-6 overflow-hidden aspect-[4/5] w-full border border-primary-container/10">
-                  <div className="w-full h-full bg-slate-200 grayscale group-hover:grayscale-0 transition-all duration-700 flex items-center justify-center text-slate-400">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      alt="Dr. Sridhar K"
-                      className="w-full h-full object-cover object-top"
-                      src="/sri.jpg"
-                    />
-                  </div>
-                </div>
-                <h3 className="font-sans font-semibold text-xl text-[#1B2A4A]">
-                  Dr. Sridhar K
-                </h3>
-                <p className="font-label-caps text-label-caps text-[#D4AF37] mt-1">
-                  TREASURER
-                </p>
-              </div>
-            </SlideUp>
+                </StaggerItem>
+              ))}
+            </StaggerChildren>
             <SlideUp delay={0.4} className="mt-20 flex justify-center">
               <Button
                 variant="outline"
-                className="border border-[#1B2A4A] h-auto rounded-none text-[#1B2A4A] px-12 py-4 font-label-caps text-label-caps tracking-widest hover:bg-[#1B2A4A] hover:text-white transition-all duration-300"
+                className="border-2 border-[#42307D]/20 h-auto rounded-full text-slate-700 px-12 py-4 font-label-caps text-label-caps tracking-widest hover:bg-[#42307D] hover:text-white hover:border-[#42307D] transition-all duration-500"
               >
                 VIEW FULL COMMITTEE
               </Button>
@@ -400,78 +408,87 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Venue Details */}
-        <section className="max-w-[1440px] mx-auto px-10 mb-32">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-            <SlideUp className="relative order-2 md:order-1">
-              <div className="aspect-[16/10] overflow-hidden border border-primary-container/20 shadow-2xl">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  alt="Aldovia - Resort & Convention"
-                  className="w-full h-full object-cover"
-                  src="/venue.jpg"
-                />
-              </div>
-              <div className="absolute -bottom-6 -right-6 w-32 h-32 border-r border-b border-[#D4AF37] -z-10"></div>
-            </SlideUp>
-            <SlideUp delay={0.2} className="order-1 md:order-2">
-              <span className="font-label-caps text-label-caps text-[#D4AF37] block mb-4">
-                THE VENUE
-              </span>
-              <h2 className="font-headline-md text-headline-md text-on-surface mb-4 italic">
-                Aldovia - Resort &amp; Convention
-              </h2>
-              <div className="flex items-center gap-2 mb-6 text-on-surface-variant font-sans">
-                <span className="font-semibold text-lg text-amber-600">
-                  4.3
+        {/* The Venue */}
+        <section className="max-w-[1440px] mx-auto px-6 md:px-10 mb-32">
+          <div className="relative w-full h-[600px] md:h-[500px] flex items-center">
+            {/* Background Image */}
+            <div className="absolute right-0 top-0 w-full md:w-[70%] h-full rounded-3xl overflow-hidden shadow-2xl">
+              <div className="absolute inset-0 bg-[#42307D]/20 mix-blend-multiply z-10"></div>
+              <img
+                alt="Aldovia - Resort & Convention"
+                className="w-full h-full object-cover"
+                src="/venue.jpg"
+              />
+            </div>
+
+            {/* Floating Glass Card Content */}
+            <SlideUp className="relative z-20 w-full md:w-[50%] md:ml-12 mt-48 md:mt-0">
+              <div className="bg-white/90 backdrop-blur-xl border border-white/50 p-10 md:p-14 rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#7F56D9] to-[#FBBF24]"></div>
+
+                <span className="font-label-caps text-label-caps text-[#7F56D9] block mb-4 tracking-[0.2em]">
+                  THE VENUE
                 </span>
-                <div className="flex text-amber-500 text-lg">
-                  <span
-                    className="material-symbols-outlined text-[18px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    star
+
+                <h2 className="font-display-hero text-4xl md:text-5xl text-slate-800 mb-4 leading-tight">
+                  Aldovia{" "}
+                  <span className="font-light italic text-slate-500">
+                    Resort &amp; Convention
                   </span>
-                  <span
-                    className="material-symbols-outlined text-[18px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    star
-                  </span>
-                  <span
-                    className="material-symbols-outlined text-[18px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    star
-                  </span>
-                  <span
-                    className="material-symbols-outlined text-[18px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    star
-                  </span>
-                  <span
-                    className="material-symbols-outlined text-[18px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    star_half
+                </h2>
+
+                <div className="flex items-center gap-3 mb-8">
+                  <div className="flex text-[#FBBF24] text-lg">
+                    <span
+                      className="material-symbols-outlined"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      star
+                    </span>
+                    <span
+                      className="material-symbols-outlined"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      star
+                    </span>
+                    <span
+                      className="material-symbols-outlined"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      star
+                    </span>
+                    <span
+                      className="material-symbols-outlined"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      star
+                    </span>
+                    <span
+                      className="material-symbols-outlined"
+                      style={{ fontVariationSettings: "'FILL' 1" }}
+                    >
+                      star_half
+                    </span>
+                  </div>
+                  <span className="font-semibold text-slate-700">4.3</span>
+                  <span className="text-sm text-slate-400">
+                    (18,009 reviews)
                   </span>
                 </div>
-                <span className="text-sm">(18,009)</span>
-              </div>
-              <p className="font-body-lg text-on-surface-variant mb-8 leading-relaxed italic border-l-2 border-[#D4AF37] pl-8">
-                &quot;Aldovia Resort and Convention, Swiss Town, Sadahalli Post,
-                Taluk, Devanahalli, Bengaluru, Karnataka 562110. A premier
-                destination offering the perfect blend of luxury and functional
-                precision for our 54th academic assembly.&quot;
-              </p>
-              <div className="flex items-center gap-6">
+
+                <p className="font-sans text-slate-600 mb-10 leading-relaxed text-lg">
+                  Swiss Town, Sadahalli Post, Taluk, Devanahalli, Bengaluru,
+                  Karnataka 562110. A premier destination offering the perfect
+                  blend of luxury and functional precision for our 54th academic
+                  assembly.
+                </p>
+
                 <Link
-                  className="font-label-caps text-label-caps text-[#1B2A4A] flex items-center gap-2 hover:gap-4 transition-all font-bold"
+                  className="inline-flex items-center gap-3 bg-white text-[#53389E] border border-[#53389E]/20 hover:border-[#53389E] hover:bg-[#F9F5FF] px-8 py-4 rounded-full font-label-caps text-sm tracking-widest font-bold transition-all duration-300 group shadow-sm hover:shadow-md"
                   href="#"
                 >
-                  DIRECTIONS TO VENUE{" "}
-                  <span className="material-symbols-outlined text-sm">
+                  DIRECTIONS TO VENUE
+                  <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">
                     arrow_forward
                   </span>
                 </Link>
@@ -481,21 +498,21 @@ export default function Home() {
         </section>
 
         {/* Registration Registry */}
-        <section className="max-w-[1440px] mx-auto px-10 mb-32">
-          <SlideUp className="bg-white border border-[#1B2A4A]/5 shadow-2xl overflow-hidden">
-            <div className="bg-[#1B2A4A] p-12 text-center text-white">
-              <span className="font-label-caps text-label-caps text-[#D4AF37] block mb-4">
+        <section className="max-w-[1440px] mx-auto px-6 md:px-10 mb-32">
+          <SlideUp className="bg-white rounded-3xl border border-[#7F56D9]/10 shadow-2xl overflow-hidden">
+            <div className="bg-gradient-to-r from-[#42307D] via-[#53389E] to-[#7F56D9] p-10 md:p-12 text-center text-white">
+              <span className="font-label-caps text-label-caps text-[#FBBF24] block mb-4">
                 DELEGATE ENROLLMENT
               </span>
-              <h2 className="font-display-hero text-5xl">
+              <h2 className="font-display-hero text-4xl md:text-5xl">
                 Registration{" "}
-                <span className="italic text-[#D4AF37]">Registry</span>
+                <span className="italic text-[#FBBF24]">Registry</span>
               </h2>
             </div>
             <div className="p-8 md:p-12 overflow-x-auto">
               <Table className="w-full text-left min-w-[800px] border-collapse">
                 <TableHeader>
-                  <TableRow className="border-b border-[#D4AF37]/20 hover:bg-transparent">
+                  <TableRow className="border-b border-[#FBBF24]/20 hover:bg-transparent">
                     <TableHead className="py-6 font-label-caps text-label-caps text-on-surface-variant h-auto">
                       CATEGORY
                     </TableHead>
@@ -529,7 +546,7 @@ export default function Home() {
                   </TableRow>
                 </TableHeader>
                 <TableBody className="font-body-lg text-on-surface">
-                  <TableRow className="border-b border-[#D4AF37]/10 hover:bg-surface-container-low transition-colors">
+                  <TableRow className="border-b border-[#FBBF24]/10 hover:bg-surface-container-low transition-colors">
                     <TableCell className="py-6 font-semibold">
                       Members
                     </TableCell>
@@ -539,7 +556,7 @@ export default function Home() {
                     <TableCell className="py-6">₹26,000</TableCell>
                     <TableCell className="py-6">₹35,000</TableCell>
                   </TableRow>
-                  <TableRow className="border-b border-[#D4AF37]/10 hover:bg-surface-container-low transition-colors">
+                  <TableRow className="border-b border-[#FBBF24]/10 hover:bg-surface-container-low transition-colors">
                     <TableCell className="py-6 font-semibold">
                       Non-Members
                     </TableCell>
@@ -549,7 +566,7 @@ export default function Home() {
                     <TableCell className="py-6">₹34,000</TableCell>
                     <TableCell className="py-6">₹43,000</TableCell>
                   </TableRow>
-                  <TableRow className="border-b border-[#D4AF37]/10 hover:bg-surface-container-low transition-colors">
+                  <TableRow className="border-b border-[#FBBF24]/10 hover:bg-surface-container-low transition-colors">
                     <TableCell className="py-6 font-semibold">
                       PG Students
                     </TableCell>
@@ -559,7 +576,7 @@ export default function Home() {
                     <TableCell className="py-6">₹14,000</TableCell>
                     <TableCell className="py-6">₹18,000</TableCell>
                   </TableRow>
-                  <TableRow className="border-b border-[#D4AF37]/10 hover:bg-surface-container-low transition-colors">
+                  <TableRow className="border-b border-[#FBBF24]/10 hover:bg-surface-container-low transition-colors">
                     <TableCell className="py-6 font-semibold">
                       Diabetes Educators / Dietitians
                     </TableCell>
@@ -569,7 +586,7 @@ export default function Home() {
                     <TableCell className="py-6">₹14,000</TableCell>
                     <TableCell className="py-6">₹18,000</TableCell>
                   </TableRow>
-                  <TableRow className="border-b border-[#D4AF37]/10 hover:bg-surface-container-low transition-colors">
+                  <TableRow className="border-b border-[#FBBF24]/10 hover:bg-surface-container-low transition-colors">
                     <TableCell className="py-6 font-semibold">
                       Accompanying Delegates
                     </TableCell>
@@ -579,7 +596,7 @@ export default function Home() {
                     <TableCell className="py-6">₹26,000</TableCell>
                     <TableCell className="py-6">₹35,000</TableCell>
                   </TableRow>
-                  <TableRow className="border-b border-[#D4AF37]/10 hover:bg-surface-container-low transition-colors">
+                  <TableRow className="border-b border-[#FBBF24]/10 hover:bg-surface-container-low transition-colors">
                     <TableCell className="py-6 font-semibold">
                       Corporate Delegates
                     </TableCell>
@@ -606,7 +623,7 @@ export default function Home() {
               <p className="font-label-caps text-label-caps text-on-surface-variant mb-6">
                 * REGISTRATION FEE INCLUDES 18% GST
               </p>
-              <Button className="bg-[#D4AF37] text-[#1B2A4A] h-auto rounded-none px-16 py-5 font-nav-link text-nav-link uppercase tracking-[0.2em] font-bold hover:bg-[#1B2A4A] hover:text-[#D4AF37] transition-all duration-300 shadow-lg">
+              <Button className="shimmer-btn !text-white bg-[#7F56D9] hover:bg-[#6941C6] shadow-md shadow-[#7F56D9]/20 text-white h-auto rounded-full px-12 md:px-16 py-5 font-nav-link text-nav-link uppercase tracking-[0.2em] font-bold hover:from-[#6941C6] hover:to-[#DB2777] transition-all duration-500 shadow-[0_8px_30px_rgba(124,58,237,0.3)]">
                 PROCEDURE TO REGISTER
               </Button>
             </div>
@@ -614,40 +631,55 @@ export default function Home() {
         </section>
 
         {/* Dates and Quick Stats */}
-        <section className="max-w-[1440px] mx-auto px-10 mb-32">
-          <SlideUp className="grid grid-cols-1 md:grid-cols-3 gap-0 bg-transparent">
-            <div className="p-12 flex flex-col justify-center items-center text-center">
-              <span className="font-sans font-bold text-6xl text-[#1B2A4A] mb-4">
-                6000
-              </span>
-              <h4 className="font-sans font-semibold text-lg text-[#1B2A4A]">
-                Delegates
-              </h4>
-            </div>
-            <div className="p-12 flex flex-col justify-center items-center text-center">
-              <span className="font-sans font-bold text-6xl text-[#1B2A4A] mb-4">
-                700
-              </span>
-              <h4 className="font-sans font-semibold text-lg text-[#1B2A4A]">
-                Faculties
-              </h4>
-            </div>
-            <div className="p-12 flex flex-col justify-center items-center text-center">
-              <span className="font-sans font-bold text-6xl text-[#1B2A4A] mb-4">
-                125
-              </span>
-              <h4 className="font-sans font-semibold text-lg text-[#1B2A4A]">
-                Corporate Participation
-              </h4>
-            </div>
-          </SlideUp>
+        <section className="max-w-[1440px] mx-auto px-6 md:px-10 mb-32">
+          <StaggerChildren
+            staggerDelay={0.15}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
+          >
+            <StaggerItem>
+              <div className="glass-card rounded-2xl p-10 md:p-12 flex flex-col justify-center items-center text-center">
+                <AnimatedCounter
+                  target={6000}
+                  suffix="+"
+                  className="font-sans font-bold text-5xl md:text-6xl text-slate-700 mb-3"
+                />
+                <h4 className="font-sans font-medium text-base text-slate-500 tracking-wide">
+                  Delegates
+                </h4>
+              </div>
+            </StaggerItem>
+            <StaggerItem>
+              <div className="glass-card rounded-2xl p-10 md:p-12 flex flex-col justify-center items-center text-center">
+                <AnimatedCounter
+                  target={700}
+                  suffix="+"
+                  className="font-sans font-bold text-5xl md:text-6xl text-slate-700 mb-3"
+                />
+                <h4 className="font-sans font-medium text-base text-slate-500 tracking-wide">
+                  Faculties
+                </h4>
+              </div>
+            </StaggerItem>
+            <StaggerItem>
+              <div className="glass-card rounded-2xl p-10 md:p-12 flex flex-col justify-center items-center text-center">
+                <AnimatedCounter
+                  target={125}
+                  suffix="+"
+                  className="font-sans font-bold text-5xl md:text-6xl text-slate-700 mb-3"
+                />
+                <h4 className="font-sans font-medium text-base text-slate-500 tracking-wide">
+                  Corporate Participation
+                </h4>
+              </div>
+            </StaggerItem>
+          </StaggerChildren>
         </section>
 
         {/* Explore Bengaluru Section */}
         <section className="bg-surface-container/30 py-32 mb-32 border-y border-primary-container/10">
           <div className="max-w-[1440px] mx-auto px-10">
             <SlideUp className="flex flex-col items-center mb-16 text-center">
-              <span className="font-label-caps text-label-caps text-[#D4AF37] mb-4">
+              <span className="font-label-caps text-label-caps text-[#FBBF24] mb-4">
                 POPULAR DESTINATIONS
               </span>
               <h2 className="font-headline-md text-headline-md">
@@ -655,50 +687,50 @@ export default function Home() {
               </h2>
               <div className="w-24 h-[1px] bg-primary-container mt-6"></div>
             </SlideUp>
-            <SlideUp
-              delay={0.2}
-              className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8"
+            <StaggerChildren
+              staggerDelay={0.06}
+              className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
             >
               {[
-                "Iskon Bengaluru",
-                "Lalbagh Botanical Garden",
-                "UB City",
-                "Cubbon Park",
-                "Phoenix Mall",
-                "The Bangalore Palace",
+                { name: "Iskon Bengaluru", img: "/iskon.png" },
+                { name: "Lalbagh Botanical Garden", img: "/lalbagh.png" },
+                { name: "UB City", img: "/ub.png" },
+                { name: "Cubbon Park", img: "/chubbon.png" },
+                { name: "Phoenix Mall", img: "/phoenix.png" },
+                { name: "The Bangalore Palace", img: "/palace.png" },
               ].map((place) => (
-                <div
-                  key={place}
-                  className="relative aspect-video group overflow-hidden border border-primary-container/20"
-                >
-                  <div className="absolute inset-0 bg-[#1B2A4A]/80 group-hover:bg-[#1B2A4A]/60 transition-colors z-10"></div>
-                  <div className="absolute inset-0 flex items-center justify-center z-20 p-4 text-center">
-                    <span className="font-sans font-semibold text-white tracking-wide text-sm md:text-lg">
-                      {place}
-                    </span>
+                <StaggerItem key={place.name}>
+                  <div className="relative aspect-video group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#42307D]/70 to-[#53389E]/80 group-hover:from-[#42307D]/50 group-hover:to-[#7F56D9]/60 transition-all duration-500 z-10"></div>
+                    <div className="absolute inset-0 flex items-center justify-center z-20 p-4 text-center">
+                      <span className="font-sans font-semibold text-white tracking-wide text-sm md:text-lg">
+                        {place.name}
+                      </span>
+                    </div>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      alt={place.name}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-110"
+                      src={place.img}
+                    />
                   </div>
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    alt={place}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-110"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGruWcLXpC4T9p9Rf_5SfjQrQGPk1e-EnmpjrM0lFGNimW8ve9IBc_tgmjOwqnf1NMZYRS4uIhEBikKTtSR041iNpKaASBsq5_iSdsfc1vsRxMF2ujiNfQZh7jyYVrMSVwckTiMzjau1nxtGBI9aCzdBYl8orIE5SUSar_XnjAGr_TwGUCh21m6STRtrcBBQkLd02QH41iiMOLqZ3Srhh6zSpnp4zDjYZl5JpzjPkev8V08j96GW-KiL-wN_JWYtgiVi-MHLngJpN6"
-                  />
-                </div>
+                </StaggerItem>
               ))}
-            </SlideUp>
+            </StaggerChildren>
           </div>
         </section>
 
         {/* Contact Us Form */}
-        <section className="max-w-[1440px] mx-auto px-10 mb-32">
-          <SlideUp className="grid grid-cols-1 md:grid-cols-2 gap-0 bg-white shadow-[0_20px_40px_rgba(10,17,40,0.05)] border border-primary-container/10">
-            <div className="bg-[#1B2A4A] p-12 lg:p-16 text-white flex flex-col justify-center relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-64 h-64 border border-[#D4AF37]/10 -ml-32 -mt-32 rotate-45"></div>
-              <span className="font-label-caps text-label-caps text-[#D4AF37] mb-4">
+        <section className="max-w-[1440px] mx-auto px-6 md:px-10 mb-32">
+          <SlideUp className="grid grid-cols-1 md:grid-cols-2 gap-0 bg-white rounded-3xl shadow-[0_20px_60px_rgba(10,17,40,0.08)] overflow-hidden">
+            <div className="bg-gradient-to-br from-[#42307D] via-[#53389E] to-[#42307D] p-10 md:p-12 lg:p-16 text-white flex flex-col justify-center relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-64 h-64 border border-[#9E77ED]/10 -ml-32 -mt-32 rotate-45 float-slow"></div>
+              <div className="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-[#7F56D9]/20 blur-2xl gradient-orb"></div>
+              <span className="font-label-caps text-label-caps text-[#FBBF24] mb-4">
                 GET IN TOUCH
               </span>
               <h2 className="font-display-hero text-4xl mb-6">
-                Contact <span className="italic text-[#D4AF37]">Us</span>
+                Contact <span className="italic text-[#FBBF24]">Us</span>
               </h2>
               <p className="font-sans text-slate-300 leading-relaxed mb-10 max-w-md">
                 Have questions about the 54th Annual RSSDI Conference? Reach out
@@ -708,24 +740,24 @@ export default function Home() {
               <div className="flex flex-col gap-6 font-sans text-sm text-slate-300">
                 <a
                   href="mailto:contact@rxevents.co.in"
-                  className="flex items-center gap-4 hover:text-[#D4AF37] transition-colors"
+                  className="flex items-center gap-4 hover:text-[#FBBF24] transition-colors"
                 >
-                  <span className="material-symbols-outlined text-[24px] text-[#D4AF37]">
+                  <span className="material-symbols-outlined text-[24px] text-[#FBBF24]">
                     mail
                   </span>{" "}
                   contact@rxevents.co.in
                 </a>
                 <a
                   href="tel:+919099331371"
-                  className="flex items-center gap-4 hover:text-[#D4AF37] transition-colors"
+                  className="flex items-center gap-4 hover:text-[#FBBF24] transition-colors"
                 >
-                  <span className="material-symbols-outlined text-[24px] text-[#D4AF37]">
+                  <span className="material-symbols-outlined text-[24px] text-[#FBBF24]">
                     call
                   </span>{" "}
                   +91 90993 31371
                 </a>
                 <div className="flex items-start gap-4 mt-2">
-                  <span className="material-symbols-outlined text-[24px] text-[#D4AF37]">
+                  <span className="material-symbols-outlined text-[24px] text-[#FBBF24]">
                     location_on
                   </span>
                   <span className="leading-relaxed text-base max-w-[250px]">
@@ -738,7 +770,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="p-12 lg:p-16">
+            <div className="p-8 md:p-12 lg:p-16">
               <form className="flex flex-col gap-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="flex flex-col gap-2">
@@ -746,7 +778,7 @@ export default function Home() {
                       FIRST NAME
                     </label>
                     <Input
-                      className="border-0 border-b border-primary-container/20 rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-[#D4AF37] shadow-none font-sans text-lg h-auto"
+                      className="border-0 border-b border-primary-container/20 rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-[#FBBF24] shadow-none font-sans text-lg h-auto"
                       placeholder="John"
                     />
                   </div>
@@ -755,7 +787,7 @@ export default function Home() {
                       LAST NAME
                     </label>
                     <Input
-                      className="border-0 border-b border-primary-container/20 rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-[#D4AF37] shadow-none font-sans text-lg h-auto"
+                      className="border-0 border-b border-primary-container/20 rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-[#FBBF24] shadow-none font-sans text-lg h-auto"
                       placeholder="Doe"
                     />
                   </div>
@@ -766,7 +798,7 @@ export default function Home() {
                   </label>
                   <Input
                     type="email"
-                    className="border-0 border-b border-primary-container/20 rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-[#D4AF37] shadow-none font-sans text-lg h-auto"
+                    className="border-0 border-b border-primary-container/20 rounded-none px-0 py-2 focus-visible:ring-0 focus-visible:border-[#FBBF24] shadow-none font-sans text-lg h-auto"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -776,13 +808,13 @@ export default function Home() {
                   </label>
                   <textarea
                     rows={4}
-                    className="border-0 border-b border-primary-container/20 rounded-none px-0 py-2 focus:ring-0 focus:border-[#D4AF37] shadow-none font-sans text-lg bg-transparent resize-none w-full outline-none transition-colors"
+                    className="border-0 border-b border-primary-container/20 rounded-none px-0 py-2 focus:ring-0 focus:border-[#FBBF24] shadow-none font-sans text-lg bg-transparent resize-none w-full outline-none transition-colors"
                     placeholder="How can we help you?"
                   ></textarea>
                 </div>
                 <Button
                   type="button"
-                  className="bg-[#1B2A4A] !text-white rounded-none px-10 py-6 mt-4 font-label-caps text-label-caps font-bold hover:bg-[#1B2A4A]/90 transition-colors self-start w-full md:w-auto"
+                  className="shimmer-btn bg-[#42307D] !text-white rounded-full px-10 py-6 mt-4 font-label-caps text-label-caps font-bold hover:bg-[#42307D]/90 transition-all duration-500 self-start w-full md:w-auto shadow-lg"
                 >
                   SEND MESSAGE
                 </Button>
@@ -792,35 +824,41 @@ export default function Home() {
         </section>
 
         {/* Newsletter / Invitation */}
-        <section className="max-w-[1440px] mx-auto px-10 mb-32">
-          <SlideUp className="bg-[#1B2A4A] p-20 text-center relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 border border-[#D4AF37]/10 -mr-32 -mt-32 rotate-45"></div>
-            <div className="absolute bottom-0 left-0 w-64 h-64 border border-[#D4AF37]/10 -ml-32 -mb-32 rotate-45"></div>
-            <h2 className="font-display-hero text-5xl text-white mb-6">
-              Receive the Formal{" "}
-              <span className="italic text-[#D4AF37]">Invitation</span>
-            </h2>
-            <p className="font-body-lg text-slate-400 max-w-xl mx-auto mb-10">
-              Subscribe to receive the scientific prospectus, keynote
-              announcements, and exclusive early-registration access codes.
-            </p>
-            <form className="max-w-md mx-auto flex gap-4">
-              <Input
-                className="flex-grow bg-transparent border-0 border-b border-[#D4AF37]/40 rounded-none text-white font-body-lg focus-visible:ring-0 focus-visible:border-[#D4AF37] placeholder:text-slate-600 transition-colors"
-                placeholder="Email Address"
-                type="email"
-              />
-              <Button className="bg-[#D4AF37] text-[#1B2A4A] rounded-none px-8 py-3 h-auto font-label-caps text-label-caps font-bold hover:bg-white transition-colors">
-                SUBMIT
-              </Button>
-            </form>
+        <section className="max-w-[1440px] mx-auto px-6 md:px-10 mb-32">
+          <SlideUp className="bg-gradient-to-br from-[#42307D] via-[#53389E] to-[#7F56D9] p-12 md:p-20 text-center relative overflow-hidden rounded-3xl">
+            <div className="absolute top-0 right-0 w-64 h-64 border border-[#9E77ED]/10 -mr-32 -mt-32 rotate-45 float-slow"></div>
+            <div
+              className="absolute bottom-0 left-0 w-64 h-64 border border-[#FBBF24]/10 -ml-32 -mb-32 rotate-45 float-slow"
+              style={{ animationDelay: "3s" }}
+            ></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-[#9E77ED]/[0.06] blur-3xl gradient-orb"></div>
+            <div className="relative z-10">
+              <h2 className="font-display-hero text-4xl md:text-5xl text-white mb-6">
+                Receive the Formal{" "}
+                <span className="italic text-[#FBBF24]">Invitation</span>
+              </h2>
+              <p className="font-body-lg text-slate-400 max-w-xl mx-auto mb-10">
+                Subscribe to receive the scientific prospectus, keynote
+                announcements, and exclusive early-registration access codes.
+              </p>
+              <form className="max-w-md mx-auto flex flex-col md:flex-row gap-4">
+                <Input
+                  className="flex-grow bg-white/10 border border-[#FBBF24]/20 rounded-full text-white font-body-lg focus-visible:ring-0 focus-visible:border-[#FBBF24] placeholder:text-slate-500 transition-colors px-6 py-3 h-auto backdrop-blur-sm"
+                  placeholder="Email Address"
+                  type="email"
+                />
+                <Button className="shimmer-btn bg-[#FBBF24] text-slate-700 rounded-full px-8 py-3 h-auto font-label-caps text-label-caps font-bold hover:bg-white transition-all duration-500">
+                  SUBSCRIBE
+                </Button>
+              </form>
+            </div>
           </SlideUp>
         </section>
       </main>
 
       {/* Shared Component: Footer */}
-      <footer className="bg-[#1B2A4A] border-t border-[#D4AF37]/30 text-white">
-        <div className="max-w-[1440px] mx-auto px-10 py-16">
+      <footer className="bg-gradient-to-b from-[#42307D] to-[#0f0720] border-t border-[#7F56D9]/20 text-white">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-10 py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/10 pb-12 mb-12">
             {/* Logo & Contact */}
             <div>
@@ -837,7 +875,7 @@ export default function Home() {
               <div className="flex flex-col gap-3 font-sans text-sm text-slate-400">
                 <a
                   href="mailto:contact@rxevents.co.in"
-                  className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
+                  className="flex items-center gap-2 hover:text-[#FBBF24] transition-colors"
                 >
                   <span className="material-symbols-outlined text-[18px]">
                     mail
@@ -846,7 +884,7 @@ export default function Home() {
                 </a>
                 <a
                   href="tel:+919099331371"
-                  className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
+                  className="flex items-center gap-2 hover:text-[#FBBF24] transition-colors"
                 >
                   <span className="material-symbols-outlined text-[18px]">
                     call
@@ -858,7 +896,7 @@ export default function Home() {
 
             {/* Quick Links */}
             <div>
-              <h4 className="font-label-caps text-label-caps text-[#D4AF37] mb-6">
+              <h4 className="font-label-caps text-label-caps text-[#FBBF24] mb-6">
                 QUICK LINKS
               </h4>
               <div className="flex flex-col gap-3 font-sans text-sm text-slate-300">
@@ -897,24 +935,24 @@ export default function Home() {
 
             {/* Support Queries */}
             <div>
-              <h4 className="font-label-caps text-label-caps text-[#D4AF37] mb-6">
+              <h4 className="font-label-caps text-label-caps text-[#FBBF24] mb-6">
                 QUERIES
               </h4>
               <div className="flex flex-col gap-3 font-sans text-sm text-slate-300">
                 <span className="flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#D4AF37]"></span>{" "}
+                  <span className="w-1 h-1 rounded-full bg-[#FBBF24]"></span>{" "}
                   Registration Query
                 </span>
                 <span className="flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#D4AF37]"></span>{" "}
+                  <span className="w-1 h-1 rounded-full bg-[#FBBF24]"></span>{" "}
                   Scientific Program Query
                 </span>
                 <span className="flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#D4AF37]"></span>{" "}
+                  <span className="w-1 h-1 rounded-full bg-[#FBBF24]"></span>{" "}
                   Abstract Query
                 </span>
                 <span className="flex items-center gap-2">
-                  <span className="w-1 h-1 rounded-full bg-[#D4AF37]"></span>{" "}
+                  <span className="w-1 h-1 rounded-full bg-[#FBBF24]"></span>{" "}
                   Contact Query
                 </span>
               </div>
@@ -925,7 +963,7 @@ export default function Home() {
             <div className="font-sans text-xs uppercase tracking-widest text-slate-400">
               © {new Date().getFullYear()} RSSDI 2026. All Rights Reserved.
             </div>
-            <div className="font-sans text-xs uppercase tracking-widest text-[#D4AF37]">
+            <div className="font-sans text-xs uppercase tracking-widest text-[#FBBF24]">
               Design and Developed by Enlacecode Technology Pvt. Ltd.
             </div>
           </div>
