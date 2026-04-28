@@ -47,16 +47,20 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 }
 
 export function CountdownTimer() {
-  const [time, setTime] = useState<TimeLeft>(getTimeLeft());
-  const [mounted, setMounted] = useState(false);
+  const [time, setTime] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
-    setMounted(true);
-    const interval = setInterval(() => setTime(getTimeLeft()), 1000);
-    return () => clearInterval(interval);
+    const update = () => setTime(getTimeLeft());
+    const timeout = window.setTimeout(update, 0);
+    const interval = window.setInterval(update, 1000);
+
+    return () => {
+      window.clearTimeout(timeout);
+      window.clearInterval(interval);
+    };
   }, []);
 
-  if (!mounted) {
+  if (!time) {
     return (
       <div className="flex items-center gap-3 md:gap-4">
         {["Days", "Hours", "Minutes", "Seconds"].map((label) => (

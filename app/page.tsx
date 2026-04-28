@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,33 +17,77 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import logo from "@/public/logo.png";
+import heroImage from "@/public/hero.png";
+import kmImage from "@/public/km.png";
+import lsreeImage from "@/public/lsree.jpg";
+import kartikImage from "@/public/kartik.jpg";
+import sriImage from "@/public/sri.jpg";
+import venueImage from "@/public/venue.jpg";
+import iskonImage from "@/public/iskon.png";
+import lalbaghImage from "@/public/lalbagh.png";
+import ubImage from "@/public/ub.png";
+import chubbonImage from "@/public/chubbon.png";
+import phoenixImage from "@/public/phoenix.png";
+import palaceImage from "@/public/palace.png";
+
+const NAV_ITEMS = [
+  "Home",
+  "RSSDI 2026",
+  "Committee",
+  "Scientific Program",
+  "Abstract",
+  "Faculty",
+  "Downloads",
+  "Contact",
+];
+
+const COMMITTEE_MEMBERS = [
+  {
+    name: "Dr. K M Prasanna Kumar",
+    role: "CHAIRMAN & NATIONAL PATRON",
+    img: kmImage,
+  },
+  {
+    name: "Dr. L Sreenivasamurthy",
+    role: "ORGANISING SECRETARY",
+    img: lsreeImage,
+  },
+  {
+    name: "Dr. Karthik Munichoodappa",
+    role: "ORGANISING SECRETARY",
+    img: kartikImage,
+  },
+  { name: "Dr. Sridhar K", role: "TREASURER", img: sriImage },
+];
+
+const BENGALURU_PLACES = [
+  { name: "Iskon Bengaluru", img: iskonImage },
+  { name: "Lalbagh Botanical Garden", img: lalbaghImage },
+  { name: "UB City", img: ubImage },
+  { name: "Cubbon Park", img: chubbonImage },
+  { name: "Phoenix Mall", img: phoenixImage },
+  { name: "The Bangalore Palace", img: palaceImage },
+];
 
 export default function Home() {
   return (
     <div className="mesh-gradient">
       {/* Glassmorphism Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50">
-        <div className="bg-white/70 backdrop-blur-xl border-b border-[#7F56D9]/8 shadow-[0_4px_30px_rgba(45,27,105,0.06)]">
+          <div className="bg-white/70 backdrop-blur-xl border-b border-[#7F56D9]/8 shadow-[0_4px_30px_rgba(45,27,105,0.06)]">
           <div className="max-w-[1440px] mx-auto flex justify-between items-center px-6 md:px-10 py-3">
             <div className="flex items-center gap-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 alt="RSSDI 2026 Logo"
                 className="h-12 md:h-14 w-auto object-contain"
-                src="/logo.png"
+                src={logo}
+                preload
+                sizes="(max-width: 768px) 96px, 120px"
               />
             </div>
             <div className="hidden lg:flex items-center gap-6 xl:gap-7">
-              {[
-                "Home",
-                "RSSDI 2026",
-                "Committee",
-                "Scientific Program",
-                "Abstract",
-                "Faculty",
-                "Downloads",
-                "Contact",
-              ].map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <Link
                   key={item}
                   className="font-nav-link text-nav-link text-slate-500 hover:text-[#FBBF24] transition-all duration-300 whitespace-nowrap relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#FBBF24] after:transition-all after:duration-300 hover:after:w-full"
@@ -77,11 +122,15 @@ export default function Home() {
         {/* Hero Section */}
         <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden px-6 md:px-10 lg:px-16">
           <div className="absolute inset-0 z-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               alt="Vidhana Soudha, Bengaluru"
               className="w-full h-full object-cover scale-105 grayscale"
-              src="/hero.png"
+              src={heroImage}
+              fill
+              preload
+              placeholder="blur"
+              quality={80}
+              sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#faf8ff] via-[#faf8ff]/90 to-transparent z-10"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-[#faf8ff]/40 to-transparent z-10"></div>
@@ -357,33 +406,18 @@ export default function Home() {
               staggerDelay={0.12}
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10"
             >
-              {[
-                {
-                  name: "Dr. K M Prasanna Kumar",
-                  role: "CHAIRMAN & NATIONAL PATRON",
-                  img: "/km.png",
-                },
-                {
-                  name: "Dr. L Sreenivasamurthy",
-                  role: "ORGANISING SECRETARY",
-                  img: "/lsree.jpg",
-                },
-                {
-                  name: "Dr. Karthik Munichoodappa",
-                  role: "ORGANISING SECRETARY",
-                  img: "/kartik.jpg",
-                },
-                { name: "Dr. Sridhar K", role: "TREASURER", img: "/sri.jpg" },
-              ].map((member) => (
+              {COMMITTEE_MEMBERS.map((member) => (
                 <StaggerItem key={member.name}>
                   <div className="flex flex-col items-center group">
                     <div className="relative mb-6 overflow-hidden aspect-[4/5] w-full rounded-2xl border-2 border-transparent group-hover:border-[#FBBF24]/50 transition-all duration-700 shadow-lg group-hover:shadow-xl">
                       <div className="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           alt={member.name}
                           className="w-full h-full object-cover object-top"
                           src={member.img}
+                          fill
+                          placeholder="blur"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                         />
                       </div>
                     </div>
@@ -410,34 +444,45 @@ export default function Home() {
 
         {/* The Venue */}
         <section className="max-w-[1440px] mx-auto px-6 md:px-10 mb-32">
-          <div className="relative w-full h-[600px] md:h-[500px] flex items-center">
+          <div className="relative flex min-h-[700px] md:min-h-[540px] items-center">
             {/* Background Image */}
-            <div className="absolute right-0 top-0 w-full md:w-[70%] h-full rounded-3xl overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 bg-[#42307D]/20 mix-blend-multiply z-10"></div>
-              <img
+            <FadeIn className="absolute right-0 top-0 h-[420px] w-full overflow-hidden rounded-3xl shadow-[0_30px_80px_-25px_rgba(25,20,60,0.35)] md:h-full md:w-[70%]">
+              <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#24124d]/30 via-[#42307D]/14 to-transparent"></div>
+              <div className="absolute inset-0 z-10 bg-[#42307D]/16 mix-blend-multiply"></div>
+              <Image
                 alt="Aldovia - Resort & Convention"
-                className="w-full h-full object-cover"
-                src="/venue.jpg"
+                className="w-full h-full object-cover scale-[1.015] transition-transform duration-1000 ease-out"
+                src={venueImage}
+                fill
+                placeholder="blur"
+                quality={75}
+                sizes="(max-width: 768px) 100vw, 70vw"
               />
-            </div>
+            </FadeIn>
 
             {/* Floating Glass Card Content */}
-            <SlideUp className="relative z-20 w-full md:w-[50%] md:ml-12 mt-48 md:mt-0">
-              <div className="bg-white/90 backdrop-blur-xl border border-white/50 p-10 md:p-14 rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.1)] relative overflow-hidden">
+            <SlideUp
+              className="relative z-20 mt-[260px] w-full md:mt-0 md:w-[50%] md:ml-12"
+              yOffset={22}
+              duration={0.9}
+            >
+              <div className="relative overflow-hidden rounded-3xl border border-white/60 bg-white/88 p-8 shadow-[0_25px_70px_-20px_rgba(15,23,42,0.24)] backdrop-blur-2xl transition-all duration-700 md:p-14">
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#7F56D9] to-[#FBBF24]"></div>
+                <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-[#FBBF24]/10 blur-3xl"></div>
+                <div className="absolute -bottom-20 left-8 h-32 w-32 rounded-full bg-[#7F56D9]/10 blur-3xl"></div>
 
-                <span className="font-label-caps text-label-caps text-[#7F56D9] block mb-4 tracking-[0.2em]">
+                <span className="relative block mb-4 font-label-caps text-label-caps tracking-[0.2em] text-[#7F56D9]">
                   THE VENUE
                 </span>
 
-                <h2 className="font-display-hero text-4xl md:text-5xl text-slate-800 mb-4 leading-tight">
+                <h2 className="relative mb-4 font-display-hero text-4xl leading-tight text-slate-800 md:text-5xl">
                   Aldovia{" "}
                   <span className="font-light italic text-slate-500">
                     Resort &amp; Convention
                   </span>
                 </h2>
 
-                <div className="flex items-center gap-3 mb-8">
+                <div className="relative mb-8 flex items-center gap-3">
                   <div className="flex text-[#FBBF24] text-lg">
                     <span
                       className="material-symbols-outlined"
@@ -476,7 +521,7 @@ export default function Home() {
                   </span>
                 </div>
 
-                <p className="font-sans text-slate-600 mb-10 leading-relaxed text-lg">
+                <p className="relative mb-10 font-sans text-lg leading-relaxed text-slate-600">
                   Swiss Town, Sadahalli Post, Taluk, Devanahalli, Bengaluru,
                   Karnataka 562110. A premier destination offering the perfect
                   blend of luxury and functional precision for our 54th academic
@@ -484,7 +529,7 @@ export default function Home() {
                 </p>
 
                 <Link
-                  className="inline-flex items-center gap-3 bg-white text-[#53389E] border border-[#53389E]/20 hover:border-[#53389E] hover:bg-[#F9F5FF] px-8 py-4 rounded-full font-label-caps text-sm tracking-widest font-bold transition-all duration-300 group shadow-sm hover:shadow-md"
+                  className="relative inline-flex items-center gap-3 rounded-full border border-[#53389E]/20 bg-white px-8 py-4 text-sm font-bold tracking-widest text-[#53389E] shadow-sm transition-all duration-500 group hover:border-[#53389E] hover:bg-[#F9F5FF] hover:shadow-lg hover:-translate-y-0.5"
                   href="#"
                 >
                   DIRECTIONS TO VENUE
@@ -691,14 +736,7 @@ export default function Home() {
               staggerDelay={0.06}
               className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
             >
-              {[
-                { name: "Iskon Bengaluru", img: "/iskon.png" },
-                { name: "Lalbagh Botanical Garden", img: "/lalbagh.png" },
-                { name: "UB City", img: "/ub.png" },
-                { name: "Cubbon Park", img: "/chubbon.png" },
-                { name: "Phoenix Mall", img: "/phoenix.png" },
-                { name: "The Bangalore Palace", img: "/palace.png" },
-              ].map((place) => (
+              {BENGALURU_PLACES.map((place) => (
                 <StaggerItem key={place.name}>
                   <div className="relative aspect-video group overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-shadow duration-500">
                     <div className="absolute inset-0 bg-gradient-to-b from-[#42307D]/70 to-[#53389E]/80 group-hover:from-[#42307D]/50 group-hover:to-[#7F56D9]/60 transition-all duration-500 z-10"></div>
@@ -707,11 +745,13 @@ export default function Home() {
                         {place.name}
                       </span>
                     </div>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       alt={place.name}
                       className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-110"
                       src={place.img}
+                      fill
+                      placeholder="blur"
+                      sizes="(max-width: 768px) 50vw, 33vw"
                     />
                   </div>
                 </StaggerItem>
@@ -862,11 +902,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/10 pb-12 mb-12">
             {/* Logo & Contact */}
             <div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 alt="RSSDI 2026 Logo"
                 className="h-16 w-auto object-contain brightness-0 invert mb-6"
-                src="/logo.png"
+                src={logo}
+                sizes="148px"
               />
               <p className="font-sans text-sm text-slate-300 leading-relaxed max-w-sm mb-6">
                 54th Annual Conference of the Research Society for the Study of
